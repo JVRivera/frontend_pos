@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/api/clientes";
+const API_URL = `${process.env.REACT_APP_API_URL}/clientes`;
 
 export const getClientes = async () => {
   const token = localStorage.getItem("token");
