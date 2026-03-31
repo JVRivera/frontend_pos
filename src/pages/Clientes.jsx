@@ -3,7 +3,7 @@ import {
   Box, Typography, Button,
   Table, TableBody, TableCell,
   TableContainer, TableHead,
-  TableRow, Paper
+  TableRow, Paper, TablePagination
 } from "@mui/material";
 
 import { getClientes, createCliente, deleteCliente, updateCliente } from "../services/clientesService";
@@ -27,6 +27,19 @@ export default function Clientes() {
   const [editingId, setEditingId] = useState(null);
   //estado para mostrar mensaje de error del server
   const [errorMessage, setErrorMessage] = useState("");
+
+    //stados y funciones para la paginacion
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };  
 
   useEffect(() => {
     cargarClientes();
@@ -188,6 +201,15 @@ export default function Clientes() {
 
         </Table>
       </TableContainer>
+
+      <TablePagination
+        component="div"
+        count={data.length}
+        page={page}
+        onPageChange={handleChangePage}
+        rowsPerPage={rowsPerPage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />      
 
       <ClienteModal
             open={open}
