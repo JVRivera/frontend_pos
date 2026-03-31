@@ -125,7 +125,7 @@ export default function Articulos() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    cargarArticulos();
+    
   }, []);
 
   const cargarArticulos = async () => {
@@ -139,17 +139,32 @@ export default function Articulos() {
 
   return (
     <Box p={3}>
-        <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
-            <Typography variant="h5">Artículos</Typography>
-            <Button variant="contained"
-                    onClick={() => {
-                      setOpen(true)
-                      limpiarCampos()}
-                    }            
-            >
+      <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
+        
+        <Typography variant="h5">Artículos</Typography>
+
+        <Box sx={{ display: "flex", gap: 1 }}>
+          <Button 
+            variant="contained"
+            onClick={() => {
+              cargarArticulos()
+            }}
+          >
+            Ver Todos
+          </Button>
+
+          <Button 
+            variant="contained"
+            onClick={() => {
+              setOpen(true)
+              limpiarCampos()
+            }}
+          >
             Nuevo Artículo
-            </Button>
+          </Button>          
         </Box>
+
+      </Box>
 
       <TableContainer component={Paper} sx={{ 
             width: "100%",

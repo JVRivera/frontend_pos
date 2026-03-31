@@ -42,7 +42,6 @@ export default function Clientes() {
   };  
 
   useEffect(() => {
-    cargarClientes();
   }, []);
 
   //funcion para abrir modal modo edicion
@@ -138,14 +137,26 @@ export default function Clientes() {
       
       <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
         <Typography variant="h5">Clientes</Typography>
-        <Button variant="contained"
+        <Box sx={{ display: "flex", gap: 1 }}>
+          <Button 
+            variant="contained"
             onClick={() => {
-                      setOpen(true);
-                      limpiarCampos();
-                    }}         
-        >
+              cargarClientes()
+            }}
+          >
+            Ver Todos
+          </Button>
+
+          <Button 
+            variant="contained"
+            onClick={() => {
+              setOpen(true)
+              limpiarCampos()
+            }}
+          >
             Nuevo Cliente
-        </Button>
+          </Button>          
+        </Box>
       </Box>
 
       <TableContainer component={Paper} sx={{
