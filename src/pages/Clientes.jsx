@@ -3,10 +3,11 @@ import {
   Box, Typography, Button,
   Table, TableBody, TableCell,
   TableContainer, TableHead,
-  TableRow, Paper, TablePagination
+  TableRow, Paper, TablePagination,
+  TextField
 } from "@mui/material";
 
-import { getClientes, createCliente, deleteCliente, updateCliente } from "../services/clientesService";
+import { getClientes, createCliente, deleteCliente, updateCliente, buscarCliente } from "../services/clientesService";
 import ClienteModal from "../components/ClienteModal";
 
 export default function Clientes() {
@@ -23,6 +24,9 @@ export default function Clientes() {
 
   //estado para obtener los clientes  
   const [data, setData] = useState([]);
+  //estado para buscar clientes
+  const [search, setSearch] = useState("");
+  
   //estado para edicion
   const [editingId, setEditingId] = useState(null);
   //estado para mostrar mensaje de error del server
@@ -42,7 +46,25 @@ export default function Clientes() {
   };  
 
   useEffect(() => {
-  }, []);
+    const delay = setTimeout(() => {
+      if (search.length > 1) {
+        handleBuscar();
+      }
+    }, 400);
+
+    return () => clearTimeout(delay);
+
+  }, [search]);
+
+  //funcion para buscar los clientes por nombre
+  const handleBuscar = async () => {
+    try {
+      const clientes = await buscarCliente(search);
+      setData(clientes);
+    } catch (error) {
+      console.error("Error buscando clientes", error);
+    }
+  };  
 
   //funcion para abrir modal modo edicion
   const handleEdit = (cliente) => {
@@ -158,6 +180,16 @@ export default function Clientes() {
           </Button>          
         </Box>
       </Box>
+
+      <Box sx={{ mb: 2, background: "white" }}>
+        <TextField
+          fullWidth
+          size="small"
+          label="Buscar cliente..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </Box>      
 
       <TableContainer component={Paper} sx={{
         width: "100%",
