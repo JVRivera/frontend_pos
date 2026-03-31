@@ -166,37 +166,37 @@ export default function Clientes() {
           </TableHead>
 
           <TableBody>
-            {data.map((row) => (
-              <TableRow key={row.id}>
-                <TableCell>{row.id}</TableCell>
-                <TableCell>{row.nombre}</TableCell>
-                <TableCell>{row.direccion}</TableCell>
-                <TableCell>{row.telefono}</TableCell>
-                <TableCell>{row.nit}</TableCell>
-                <TableCell>
-                  <Button
-                    size="small"
-                    color="success"
-                    variant="contained"
-                    sx={{ mr: 1 }}
-                    onClick={() => handleEdit(row)}
-                    disableEnforceFocus
-                  >
-                    Editar
-                  </Button>
+            {data
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row) => (
+                <TableRow key={row.id}>
+                  <TableCell>{row.id}</TableCell>
+                  <TableCell>{row.nombre}</TableCell>
+                  <TableCell>{row.direccion}</TableCell>
+                  <TableCell>{row.telefono}</TableCell>
+                  <TableCell>{row.nit}</TableCell>
+                  <TableCell>
+                    <Button
+                      size="small"
+                      color="success"
+                      variant="contained"
+                      sx={{ mr: 1 }}
+                      onClick={() => handleEdit(row)}
+                    >
+                      Editar
+                    </Button>
 
-                  <Button
-                    size="small"
-                    color="error"
-                    variant="contained"
-                    onClick={() => handleDelete(row.id)}
-                  >
-                    Eliminar
-                  </Button>
-
-                </TableCell>
-              </TableRow>
-            ))}
+                    <Button
+                      size="small"
+                      color="error"
+                      variant="contained"
+                      onClick={() => handleDelete(row.id)}
+                    >
+                      Eliminar
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
 
         </Table>
