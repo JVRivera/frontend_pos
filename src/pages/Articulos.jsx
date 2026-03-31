@@ -3,10 +3,11 @@ import {
   Box, Typography, Button,
   Table, TableBody, TableCell,
   TableContainer, TableHead,
-  TableRow, Paper, TablePagination
+  TableRow, Paper, TablePagination,
+  TextField
 } from "@mui/material";
 
-import { getArticulos, createArticulo, deleteArticulo, updateArticulo } from "../services/articulosService";
+import { getArticulos, createArticulo, deleteArticulo, updateArticulo, buscarArticulos} from "../services/articulosService";
 import ArticuloModal from "../components/ArticuloModal";
 
 export default function Articulos() {
@@ -37,6 +38,11 @@ export default function Articulos() {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };  
+
+  //estado para cargar los articulos  
+  const [data, setData] = useState([]);
+  //estado para buscar articulos por articulo, descripcion
+  const [search, setSearch] = useState("");  
 
   //funcion para abrir modal modo edicion
   const handleEdit = (articulo) => {
@@ -121,12 +127,27 @@ export default function Articulos() {
     }
   };
 
-  //estado para cargar los articulos  
-  const [data, setData] = useState([]);
-
   useEffect(() => {
-    
-  }, []);
+    const delay = setTimeout(() => {
+      if (search.length > 1) {
+        handleBuscar();
+      }
+    }, 400);
+
+    return () => clearTimeout(delay);
+
+  }, [search]);
+
+
+    //funcion para buscar los articulos por articulo, descripcion
+    const handleBuscar = async () => {
+      try {
+        const clientes = await buscarArticulos(search);
+        setData(clientes);
+      } catch (error) {
+        console.error("Error buscando articulos", error);
+      }
+    }; 
 
   const cargarArticulos = async () => {
     try {
@@ -165,6 +186,16 @@ export default function Articulos() {
         </Box>
 
       </Box>
+
+      <Box sx={{ mb: 2, background: "white" }}>
+        <TextField
+          fullWidth
+          size="small"
+          label="Buscar articulos..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </Box>       
 
       <TableContainer component={Paper} sx={{ 
             width: "100%",

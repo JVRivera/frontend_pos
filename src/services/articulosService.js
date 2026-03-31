@@ -45,3 +45,17 @@ export const updateArticulo = async (id, data) => {
   });
   return response.data;
 };
+
+
+export const buscarArticulos = async (search) => {
+  const token = localStorage.getItem("token");
+
+  const response = await axios.get(`${API_URL}/buscar`, {
+    params: { search },
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  return response.data;
+};

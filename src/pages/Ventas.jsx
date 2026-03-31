@@ -48,7 +48,11 @@ const Ventas = () => {
       {/* Buscar cliente */}
       <Box mb={3}>
         <TextField
-          label="Buscar Cliente"
+          sx={{
+            backgroundColor: "#f5f5f5",
+            borderRadius: 2
+          }}        
+          label="Buscar Clientes..."
           variant="outlined"
           fullWidth
           // Aquí se puede agregar onChange para buscar clientes
@@ -98,7 +102,11 @@ const Ventas = () => {
       {/* Buscar articulos para la venta */}
       <Box mb={3}>
         <TextField
-          label="Buscar Articulos"
+          sx={{
+            backgroundColor: "#f5f5f5",
+            borderRadius: 2
+          }}        
+          label="Buscar Articulos..."
           variant="outlined"
           fullWidth
           // Aquí se puede agregar onChange para buscar clientes

@@ -24,7 +24,7 @@ export default function Clientes() {
 
   //estado para obtener los clientes  
   const [data, setData] = useState([]);
-  //estado para buscar clientes
+  //estado para buscar clientes por nombre, direccion, nit
   const [search, setSearch] = useState("");
   
   //estado para edicion
@@ -56,7 +56,7 @@ export default function Clientes() {
 
   }, [search]);
 
-  //funcion para buscar los clientes por nombre
+  //funcion para buscar los clientes por nombre, direccion, nit
   const handleBuscar = async () => {
     try {
       const clientes = await buscarCliente(search);
@@ -185,7 +185,7 @@ export default function Clientes() {
         <TextField
           fullWidth
           size="small"
-          label="Buscar cliente..."
+          label="Buscar clientes..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
