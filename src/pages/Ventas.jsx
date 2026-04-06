@@ -124,7 +124,7 @@ const Ventas = () => {
       } else {
         // Si no existe, agregar nuevo
         const nuevoArticulo = {
-          id: articulo.id,
+          idarticulo: articulo.id,
           articulo: articulo.articulo,
           descripcion: articulo.descripcion,
           cantidad: 1,
@@ -236,7 +236,7 @@ const Ventas = () => {
   const handleActualizar = (id, valor) => {
     setArticulosVenta(prev =>
       prev.map(item => {
-        if (item.id === id) {
+        if (item.idarticulo === id) {
           const nuevoItem = {
             ...item,
             cantidad: valor
@@ -258,7 +258,7 @@ const Ventas = () => {
   const handleCambioTipoDesc = (id, tipo, valor) => {
     setArticulosVenta(prev =>
       prev.map(art => {
-        if (art.id !== id) return art;
+        if (art.idarticulo !== id) return art;
 
         const nuevoTipo = tipo ?? art.tipodesc.split("-")[0];
         const nuevoValor = valor ?? art.tipodesc.split("-")[1];
@@ -418,8 +418,8 @@ const Ventas = () => {
           </TableHead>
           <TableBody>
             {articulosVenta?.map((art) => (
-              <TableRow key={art.id}>
-                <TableCell>{art.id}</TableCell>
+              <TableRow key={art.idarticulo}>
+                <TableCell>{art.idarticulo}</TableCell>
                 <TableCell>{art.articulo}</TableCell>
                 <TableCell>{art.descripcion}</TableCell>
                 <TableCell>
@@ -431,7 +431,7 @@ const Ventas = () => {
                     onChange={(e) => {
                       const valor = e.target.value;
                       handleActualizar(
-                        art.id,
+                        art.idarticulo,
                         valor === "" ? "" : Number(valor)
                       );
                     }}
@@ -447,7 +447,7 @@ const Ventas = () => {
                       value={art.tipodesc?.split("-")[0] || "E"}
                       onChange={(e) =>
                         handleCambioTipoDesc(
-                          art.id,
+                          art.idarticulo,
                           e.target.value,
                           art.tipodesc?.split("-")[1]
                         )
@@ -464,7 +464,7 @@ const Ventas = () => {
                       value={art.tipodesc?.split("-")[1] || 0}
                       onChange={(e) =>
                         handleCambioTipoDesc(
-                          art.id,
+                          art.idarticulo,
                           art.tipodesc?.split("-")[0],
                           e.target.value
                         )
@@ -479,7 +479,7 @@ const Ventas = () => {
                   <Box sx={{ display: "flex", gap: 1 }}>
                     <IconButton 
                       color="error"
-                      onClick={() => handleEliminar(art.id)}
+                      onClick={() => handleEliminar(art.idarticulo)}
                     >
                       <DeleteIcon />
                     </IconButton>
