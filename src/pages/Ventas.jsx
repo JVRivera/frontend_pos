@@ -124,7 +124,7 @@ const Ventas = () => {
       } else {
         // Si no existe, agregar nuevo
         const nuevoArticulo = {
-          idarticulo: articulo.id,
+          id: articulo.id,
           articulo: articulo.articulo,
           descripcion: articulo.descripcion,
           cantidad: 1,
