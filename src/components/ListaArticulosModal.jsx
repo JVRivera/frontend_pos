@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import {
   Modal,
   Box,
@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 
 import CloseIcon from "@mui/icons-material/Close";
+import TablePagination from "@mui/material/TablePagination";
 
 const style = {
   position: "absolute",
@@ -29,6 +30,19 @@ const style = {
 };
 
 const ModalArticulos = ({ open, handleClose, articulos, onSeleccionar }) => {
+  //estados para paginacion
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  //funciones de paginacion
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };  
+
   return (
     <Modal
       open={open}
@@ -69,7 +83,8 @@ const ModalArticulos = ({ open, handleClose, articulos, onSeleccionar }) => {
             </TableHead>
 
             <TableBody>
-              {articulos?.map((articulo) => (
+              {articulos?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((articulo) => (
                 <TableRow key={articulo.id}>
                   <TableCell>{articulo.id}</TableCell>
                   <TableCell>{articulo.articulo}</TableCell>
@@ -94,6 +109,16 @@ const ModalArticulos = ({ open, handleClose, articulos, onSeleccionar }) => {
 
           </Table>
         </TableContainer>
+
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={articulos?.length || 0}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />        
 
       </Box>
     </Modal>

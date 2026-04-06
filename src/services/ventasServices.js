@@ -4,7 +4,15 @@ const API_URL = `${import.meta.env.VITE_API_URL}/ventas`;
 
 export const crearVenta = async (venta) => {
   try {
-    const response = await axios.post(API_URL, venta);
+    const token = localStorage.getItem("token");
+
+    const response = await axios.post(API_URL, venta,{
+      headers: {
+          Authorization: `Bearer ${token}`
+        }    
+      }
+    );
+
     return response.data;
   } catch (error) {
     console.error("Error al crear venta:", error);
@@ -15,9 +23,16 @@ export const crearVenta = async (venta) => {
 
 export const getVentasPorFecha = async (fechaini, fechafin) => {
   try {
+    const token = localStorage.getItem("token");
+
     const response = await axios.get(
-      API_URL + "/por-fecha?fechaini=" + fechaini + "&fechafin=" + fechafin
+      API_URL + "/por-fecha?fechaini=" + fechaini + "&fechafin=" + fechafin,{
+        headers: {
+          Authorization: `Bearer ${token}`
+        }    
+      }
     );
+
     return response.data;
   } catch (error) {
     console.error("Error al obtener lista de ventas.", error);
@@ -28,7 +43,15 @@ export const getVentasPorFecha = async (fechaini, fechafin) => {
 
 export const getVentaPorId = async (id) => {
   try {
-    const response = await axios.get(`${API_URL}/${id}`);
+    const token = localStorage.getItem("token");
+
+    const response = await axios.get(`${API_URL}/${id}`,{
+        headers: {
+          Authorization: `Bearer ${token}`
+        }    
+      }
+    );
+    
     return response.data;
   } catch (error) {
     console.error("Error al obtener la venta.", error);
