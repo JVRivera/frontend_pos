@@ -53,9 +53,7 @@ export default function Sidebar() {
   ];
 
   const onLogout = () => {
-    console.log("Desde onLogout");
-    localStorage.removeItem("token");
-    localStorage.removeItem("usuario");
+    sessionStorage.clear();
     navigate("/login");
   };
 

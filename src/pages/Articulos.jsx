@@ -40,7 +40,10 @@ export default function Articulos() {
   };  
 
   //estado para cargar los articulos  
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(() => {
+    const datos = sessionStorage.getItem("busquedaArticulos");
+    return datos ? JSON.parse(datos) : [];
+  });
   //estado para buscar articulos por articulo, descripcion
   const [search, setSearch] = useState("");  
 
@@ -138,21 +141,24 @@ export default function Articulos() {
 
   }, [search]);
 
-
-    //funcion para buscar los articulos por articulo, descripcion
-    const handleBuscar = async () => {
-      try {
-        const clientes = await buscarArticulos(search);
-        setData(clientes);
-      } catch (error) {
-        console.error("Error buscando articulos", error);
-      }
-    }; 
+  //funcion para buscar los articulos por articulo, descripcion
+  const handleBuscar = async () => {
+    try {
+      const articulos = await buscarArticulos(search);    
+      setData(articulos);
+      //guardar busqueda en localstorage
+      sessionStorage.setItem("busquedaArticulos",JSON.stringify(articulos));      
+    } catch (error) {
+      console.error("Error buscando articulos", error);
+    }
+  }; 
 
   const cargarArticulos = async () => {
     try {
-      const articulos = await getArticulos();
+      const articulos = await getArticulos();      
       setData(articulos);
+      //guardar busqueda en localstorage
+      sessionStorage.setItem("busquedaArticulos",JSON.stringify(articulos));          
     } catch (error) {
       console.error("Error al cargar artículos", error);
     }

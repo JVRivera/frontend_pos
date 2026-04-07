@@ -23,7 +23,10 @@ export default function Clientes() {
   });
 
   //estado para obtener los clientes  
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(() => {
+    const datos = sessionStorage.getItem("busquedaClientes");
+    return datos ? JSON.parse(datos) : [];
+  });
   //estado para buscar clientes por nombre, direccion, nit
   const [search, setSearch] = useState("");
   
@@ -61,6 +64,8 @@ export default function Clientes() {
     try {
       const clientes = await buscarCliente(search);
       setData(clientes);
+      //guardar busqueda en localstorage
+      sessionStorage.setItem("busquedaClientes",JSON.stringify(clientes));      
     } catch (error) {
       console.error("Error buscando clientes", error);
     }
@@ -98,6 +103,8 @@ export default function Clientes() {
       try {
         const clientes = await getClientes();
         setData(clientes);
+        //guardar busqueda en localstorage
+        sessionStorage.setItem("busquedaClientes",JSON.stringify(clientes));          
       } catch (error) {
         console.error("Error al cargar clientes", error);
       }
