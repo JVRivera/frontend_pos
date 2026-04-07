@@ -21,8 +21,8 @@ export default function Login({ onLogin }) {
 
     try {
       const data = await login(email, password);
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("usuario", JSON.stringify(data.usuario));
+      sessionStorage.setItem("token", data.token);
+      sessionStorage.setItem("usuario", JSON.stringify(data.usuario));
 
       onLogin(data.usuario);
 

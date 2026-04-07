@@ -12,13 +12,13 @@ import Reportes from "./pages/Reportes";
 
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
+  const [isAuthenticated, setIsAuthenticated] = useState(!!sessionStorage.getItem("token"));
   
   const [usuario, setUsuario] = useState(null);
 
   useEffect(() => {
     try {
-      const user = JSON.parse(localStorage.getItem("usuario"));
+      const user = JSON.parse(sessionStorage.getItem("usuario"));
       setUsuario(user);
     } catch (error) {
     setUsuario(null);

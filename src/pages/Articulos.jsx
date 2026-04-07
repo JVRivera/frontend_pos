@@ -40,7 +40,7 @@ export default function Articulos() {
   };  
 
   //estado para cargar los articulos  
-  const [data, setData] = useState(() => {
+  const [articulos, setArticulos] = useState(() => {
     const datos = sessionStorage.getItem("busquedaArticulos");
     return datos ? JSON.parse(datos) : [];
   });
@@ -141,13 +141,17 @@ export default function Articulos() {
 
   }, [search]);
 
+  useEffect(() => {
+    //guardar busqueda en localstorage
+    sessionStorage.setItem("busquedaArticulos",JSON.stringify(articulos));  
+  }, [articulos]);
+
   //funcion para buscar los articulos por articulo, descripcion
   const handleBuscar = async () => {
     try {
       const articulos = await buscarArticulos(search);    
-      setData(articulos);
-      //guardar busqueda en localstorage
-      sessionStorage.setItem("busquedaArticulos",JSON.stringify(articulos));      
+      setArticulos(articulos);
+    
     } catch (error) {
       console.error("Error buscando articulos", error);
     }
@@ -156,9 +160,7 @@ export default function Articulos() {
   const cargarArticulos = async () => {
     try {
       const articulos = await getArticulos();      
-      setData(articulos);
-      //guardar busqueda en localstorage
-      sessionStorage.setItem("busquedaArticulos",JSON.stringify(articulos));          
+      setArticulos(articulos);        
     } catch (error) {
       console.error("Error al cargar artículos", error);
     }
@@ -222,7 +224,7 @@ export default function Articulos() {
           </TableHead>
 
           <TableBody>
-              {data
+              {articulos
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row) => (
               <TableRow key={row.id}>
@@ -260,7 +262,7 @@ export default function Articulos() {
 
       <TablePagination
         component="div"
-        count={data.length}
+        count={articulos.length}
         page={page}
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}

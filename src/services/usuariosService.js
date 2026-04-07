@@ -3,7 +3,7 @@ import axios from "axios";
 const API_URL = `${import.meta.env.VITE_API_URL}/usuarios`;
 
 export const getUsuarios = async () => {
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
 
   const response = await axios.get(API_URL,{
     headers: {
@@ -14,7 +14,7 @@ export const getUsuarios = async () => {
 };
 
 export const createUsuario = async (data) => {
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
 
   const response = await axios.post(API_URL, data,{
     headers: {
@@ -25,7 +25,7 @@ export const createUsuario = async (data) => {
 };
 
 export const deleteUsuario = async (id) => {
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
 
   const response = await axios.delete(`${API_URL}/${id}`,{
     headers: {
@@ -36,7 +36,7 @@ export const deleteUsuario = async (id) => {
 };
 
 export const updateUsuario = async (id, data) => {
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
   
   const response = await axios.put(`${API_URL}/${id}`, data,{
     headers: {

@@ -28,8 +28,14 @@ export default function Usuarios() {
     //estado para mostrar mensaje de error del server
   const [errorMessage, setErrorMessage] = useState("");
 
-  useEffect(() => {
-    cargarUsuarios();
+  useEffect(() => {    
+    const datos = sessionStorage.getItem("usuarios");
+    //JSON.parse(datos);
+    if(!datos){
+      cargarUsuarios();
+    }else{
+      setData(JSON.parse(datos));
+    }       
   }, []);
 
   //limpiarcampos 
@@ -49,6 +55,8 @@ export default function Usuarios() {
       try {
         const usuarios = await getUsuarios();
         setData(usuarios);
+        //guardar usuarios en sessionStorage
+        sessionStorage.setItem("usuarios",JSON.stringify(usuarios));        
       } catch (error) {
         console.error("Error al cargar usuarios", error);
       }

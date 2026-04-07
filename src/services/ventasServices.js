@@ -4,7 +4,7 @@ const API_URL = `${import.meta.env.VITE_API_URL}/ventas`;
 
 export const crearVenta = async (venta) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
 
     const response = await axios.post(API_URL, venta,{
       headers: {
@@ -23,7 +23,7 @@ export const crearVenta = async (venta) => {
 
 export const getVentasPorFecha = async (fechaini, fechafin) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
 
     const response = await axios.get(
       API_URL + "/por-fecha?fechaini=" + fechaini + "&fechafin=" + fechafin,{
@@ -43,7 +43,7 @@ export const getVentasPorFecha = async (fechaini, fechafin) => {
 
 export const getVentaPorId = async (id) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
 
     const response = await axios.get(`${API_URL}/${id}`,{
         headers: {
@@ -60,7 +60,7 @@ export const getVentaPorId = async (id) => {
 };
 
 export const deleteVenta = async (id) => {
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
 
   const response = await axios.delete(`${API_URL}/${id}`,{
     headers: {

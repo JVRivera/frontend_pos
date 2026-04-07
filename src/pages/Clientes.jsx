@@ -23,11 +23,12 @@ export default function Clientes() {
   });
 
   //estado para obtener los clientes  
-  const [data, setData] = useState(() => {
-    const datos = sessionStorage.getItem("busquedaClientes");
-    return datos ? JSON.parse(datos) : [];
-  });
-  //estado para buscar clientes por nombre, direccion, nit
+  const [clientes, setClientes] = useState(() => {
+      const datos = sessionStorage.getItem("busquedaClientes");
+      return datos ? JSON.parse(datos) : [];
+    }
+  );
+    //estado para buscar clientes por nombre, direccion, nit
   const [search, setSearch] = useState("");
   
   //estado para edicion
@@ -49,6 +50,12 @@ export default function Clientes() {
   };  
 
   useEffect(() => {
+    //guardar busqueda en localstorage
+    sessionStorage.setItem("busquedaClientes",JSON.stringify(clientes)); 
+
+  }, [clientes]);   
+
+  useEffect(() => {
     const delay = setTimeout(() => {
       if (search.length > 1) {
         handleBuscar();
@@ -63,9 +70,7 @@ export default function Clientes() {
   const handleBuscar = async () => {
     try {
       const clientes = await buscarCliente(search);
-      setData(clientes);
-      //guardar busqueda en localstorage
-      sessionStorage.setItem("busquedaClientes",JSON.stringify(clientes));      
+      setClientes(clientes);    
     } catch (error) {
       console.error("Error buscando clientes", error);
     }
@@ -102,9 +107,7 @@ export default function Clientes() {
   const cargarClientes = async () => {
       try {
         const clientes = await getClientes();
-        setData(clientes);
-        //guardar busqueda en localstorage
-        sessionStorage.setItem("busquedaClientes",JSON.stringify(clientes));          
+        setClientes(clientes);         
       } catch (error) {
         console.error("Error al cargar clientes", error);
       }
@@ -216,7 +219,7 @@ export default function Clientes() {
           </TableHead>
 
           <TableBody>
-            {data
+            {clientes
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => (
                 <TableRow key={row.id}>
@@ -254,7 +257,7 @@ export default function Clientes() {
 
       <TablePagination
         component="div"
-        count={data.length}
+        count={clientes.length}
         page={page}
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}

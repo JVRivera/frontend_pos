@@ -28,12 +28,10 @@ import facturaPDF from "../reportes/ventas/facturaPDF";
 
 const Ventas = () => {
   // Estado de cliente seleccionado
-  const [cliente, setCliente] = useState({
-    id: "",
-    nombre: "",
-    direccion: "",
-    nit: "",
-  });
+  const [cliente, setCliente] = useState(() => {
+      const datos = sessionStorage.getItem("ventasCliente");
+      return datos ? JSON.parse(datos) : [];
+    });
 
   // Estado de articulo seleccionado
   const [articulo, setArticulo] = useState({
@@ -47,7 +45,10 @@ const Ventas = () => {
   });  
 
   // Estado de artículos de la venta
-  const [articulosVenta, setArticulosVenta] = useState([]);
+  const [articulosVenta, setArticulosVenta] = useState(() => {
+      const datos = sessionStorage.getItem("ventasListaArticulos");
+      return datos ? JSON.parse(datos) : [];
+    });
 
   //estado para abrir el modal de lista de clientes
   const [openModalClientes, setOpenModalClientes] = useState(false);  
@@ -92,7 +93,7 @@ const Ventas = () => {
 
   //funcion para seleccionar al cliente
   const handleSeleccionarCliente = (cliente) => {       
-    setCliente(cliente);
+    setCliente(cliente); 
     setOpenModalClientes(false);
   };
 
@@ -108,12 +109,12 @@ const Ventas = () => {
 
     setArticulosVenta(prev => {
 
-      const existe = prev.find(a => a.id === articulo.id);
+      const existe = prev.find(a => a.idarticulo === articulo.id);
 
       if (existe) {
         // Si existe, aumentar cantidad
         return prev.map(a =>
-          a.id === articulo.id
+          a.idarticulo === articulo.id
             ? {
                 ...a,
                 cantidad: a.cantidad + 1,
@@ -143,16 +144,20 @@ const Ventas = () => {
   };
 
   //funcion para quitar elementos de la lista de ventas
-  const handleEliminar = (id) => {
-    console.log("id a eliminar: ", id);
-      setArticulosVenta(prev => 
-      prev.filter(articulo => articulo.id !== id)
-    );
-  }
+const handleEliminar = (id) => {
+  setArticulosVenta(prev => 
+    prev.filter(articuloVenta =>articuloVenta.idarticulo !== id)
+  );
+};
 
   useEffect(() => {
     calcular(articulosVenta);
+    sessionStorage.setItem("ventasListaArticulos",JSON.stringify(articulosVenta));
   }, [articulosVenta]);  
+
+  useEffect(() => {
+    sessionStorage.setItem("ventasCliente",JSON.stringify(cliente));
+  }, [cliente]);   
 
   //funcion para calcular los totales de la venta
   const calcular = (listaVenta) =>{
@@ -479,7 +484,10 @@ const Ventas = () => {
                   <Box sx={{ display: "flex", gap: 1 }}>
                     <IconButton 
                       color="error"
-                      onClick={() => handleEliminar(art.idarticulo)}
+                      onClick={() =>{ 
+                          handleEliminar(art.idarticulo);                        
+                        }
+                      }
                     >
                       <DeleteIcon />
                     </IconButton>
