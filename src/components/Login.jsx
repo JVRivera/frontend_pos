@@ -52,7 +52,8 @@ export default function Login({ onLogin }) {
 
         <TextField
           label="Correo"
-          autoComplete="off"
+          name="email_login"
+          autoComplete="new-email"
           fullWidth
           margin="normal"
           value={email}
@@ -67,7 +68,8 @@ export default function Login({ onLogin }) {
         <TextField
           label="Contraseña"
           type="password"
-          autoComplete="off"
+          name="password_login"
+          autoComplete="new-password"
           fullWidth
           margin="normal"
           value={password}
