@@ -40,8 +40,6 @@ export default function Login({ onLogin }) {
         alignItems: "center",
         bgcolor: "#f5f5f5"
       }}
-      component="form"
-      autoComplete="new-password"
     >
  
       {/* Campos falsos para engañar al para password */}
@@ -59,15 +57,7 @@ export default function Login({ onLogin }) {
 
         <TextField
           label="Correo"
-          type="email"
-          name="email_login"
-          autoComplete="off"
-          inputProps={{
-            autoComplete: "off",
-            form: {
-              autoComplete: "off"
-            }            
-          }}          
+          type="email"      
           fullWidth
           margin="normal"
           value={email}
@@ -80,11 +70,8 @@ export default function Login({ onLogin }) {
         />
 
         <TextField
-          id="password-field"
           label="Contraseña"
           type="password"
-          name="password_login"
-          autoComplete="current-password"
           fullWidth
           margin="normal"
           value={password}
