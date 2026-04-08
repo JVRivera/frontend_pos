@@ -43,6 +43,10 @@ export default function Login({ onLogin }) {
       component="form"
       autoComplete="off"
     >
+ 
+  {/* Campos falsos para engañar al para password */}
+  <input type="email" name="fakeusernameremembered" style={{ display: "none" }} />
+  <input type="password" name="fakepasswordremembered" style={{ display: "none" }} />      
       
       <Paper elevation={3} sx={{ p: 4, width: 300 }}>
         {error && <p style={{ color: "red" , textAlign: "center"}}>{error}</p>}
@@ -52,10 +56,14 @@ export default function Login({ onLogin }) {
 
         <TextField
           label="Correo"
+          type="email"
           name="email_login"
           autoComplete="off"
           inputProps={{
-            autoComplete: "off"
+            autoComplete: "off",
+            form: {
+              autoComplete: "off"
+            }            
           }}          
           fullWidth
           margin="normal"
@@ -74,7 +82,10 @@ export default function Login({ onLogin }) {
           name="password_login"
           autoComplete="new-password"
           inputProps={{
-            autoComplete: "new-password"
+            autoComplete: "new-password",
+            form: {
+              autoComplete: "off"
+            }              
           }}          
           fullWidth
           margin="normal"
