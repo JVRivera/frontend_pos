@@ -34,21 +34,16 @@ export default function Login({ onLogin }) {
 
   return (
     <Box sx={{
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        bgcolor: "#f5f5f5"
-      }}
-    >
- 
-      {/* Campos falsos para engañar al para password */}
-      <input type="email" name="fakeusernameremembered" style={{ display: "none" }} />
-      <input type="password" name="fakepasswordremembered" style={{ display: "none" }} />      
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          bgcolor: "#f5f5f5"
+        }}
+    > 
       
       <Paper 
         elevation={3} sx={{ p: 4, width: 300 }}
-        autoComplete="new-password"
       >
         {error && <p style={{ color: "red" , textAlign: "center"}}>{error}</p>}
         <Typography variant="h5" textAlign="center">
@@ -57,7 +52,9 @@ export default function Login({ onLogin }) {
 
         <TextField
           label="Correo"
-          type="email"      
+          type="email"
+          name="email"
+          autoComplete="email"     
           fullWidth
           margin="normal"
           value={email}
@@ -72,6 +69,8 @@ export default function Login({ onLogin }) {
         <TextField
           label="Contraseña"
           type="password"
+          name="password"
+          autoComplete="current-password"
           fullWidth
           margin="normal"
           value={password}
