@@ -77,7 +77,7 @@ export default function Login({ onLogin }) {
         />
 
         <TextField
-          id="password-field-1"
+          id={Math.random().toString(36)}
           label="Contraseña"
           type="password"
           name="password_login"
