@@ -40,6 +40,7 @@ export default function Login({ onLogin }) {
         alignItems: "center",
         bgcolor: "#f5f5f5"
       }}
+      component="form"
       autoComplete="off"
     >
       
@@ -51,6 +52,7 @@ export default function Login({ onLogin }) {
 
         <TextField
           label="Correo"
+          autoComplete="off"
           fullWidth
           margin="normal"
           value={email}
@@ -65,6 +67,7 @@ export default function Login({ onLogin }) {
         <TextField
           label="Contraseña"
           type="password"
+          autoComplete="off"
           fullWidth
           margin="normal"
           value={password}
