@@ -34,12 +34,14 @@ export default function Login({ onLogin }) {
 
   return (
     <Box sx={{
-      height: "100vh",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      bgcolor: "#f5f5f5"
-    }}>
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        bgcolor: "#f5f5f5"
+      }}
+      autoComplete="off"
+    >
       
       <Paper elevation={3} sx={{ p: 4, width: 300 }}>
         {error && <p style={{ color: "red" , textAlign: "center"}}>{error}</p>}
