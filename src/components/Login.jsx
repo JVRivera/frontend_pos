@@ -41,14 +41,17 @@ export default function Login({ onLogin }) {
         bgcolor: "#f5f5f5"
       }}
       component="form"
-      autoComplete="off"
+      autoComplete="new-password"
     >
  
-  {/* Campos falsos para engañar al para password */}
-  <input type="email" name="fakeusernameremembered" style={{ display: "none" }} />
-  <input type="password" name="fakepasswordremembered" style={{ display: "none" }} />      
+      {/* Campos falsos para engañar al para password */}
+      <input type="email" name="fakeusernameremembered" style={{ display: "none" }} />
+      <input type="password" name="fakepasswordremembered" style={{ display: "none" }} />      
       
-      <Paper elevation={3} sx={{ p: 4, width: 300 }}>
+      <Paper 
+        elevation={3} sx={{ p: 4, width: 300 }}
+        autoComplete="new-password"
+      >
         {error && <p style={{ color: "red" , textAlign: "center"}}>{error}</p>}
         <Typography variant="h5" textAlign="center">
           Login
@@ -77,17 +80,11 @@ export default function Login({ onLogin }) {
         />
 
         <TextField
-          id={Math.random().toString(36)}
+          id="password-field"
           label="Contraseña"
           type="password"
           name="password_login"
           autoComplete="new-password"
-          inputProps={{
-            autoComplete: "new-password",
-            form: {
-              autoComplete: "off"
-            }              
-          }}          
           fullWidth
           margin="normal"
           value={password}
