@@ -84,7 +84,7 @@ export default function Login({ onLogin }) {
           label="Contraseña"
           type="password"
           name="password_login"
-          autoComplete="new-password"
+          autoComplete="current-password"
           fullWidth
           margin="normal"
           value={password}
