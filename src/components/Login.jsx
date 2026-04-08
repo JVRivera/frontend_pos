@@ -53,7 +53,10 @@ export default function Login({ onLogin }) {
         <TextField
           label="Correo"
           name="email_login"
-          autoComplete="new-email"
+          autoComplete="off"
+          inputProps={{
+            autoComplete: "off"
+          }}          
           fullWidth
           margin="normal"
           value={email}
@@ -70,6 +73,9 @@ export default function Login({ onLogin }) {
           type="password"
           name="password_login"
           autoComplete="new-password"
+          inputProps={{
+            autoComplete: "new-password"
+          }}          
           fullWidth
           margin="normal"
           value={password}
